@@ -58,8 +58,7 @@ POST /classify/
 Description: Classifies an uploaded image.
 Request: Requires an image file.
 Response:
-json
-Copy code
+json:
 {
   "class": "Melanoma",
   "confidence": "92.15%"
