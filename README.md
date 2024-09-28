@@ -51,7 +51,7 @@ Start the FastAPI application:
 ```
 python main.py
 ```
-Open your browser and go to http://127.0.0.1:5000/docs to access the API documentation and test the image classification endpoint.
+Open your browser and go to http://127.0.0.1:5000/classify/ to access the API documentation and test the image classification endpoint.
 ```
 API Endpoint
 POST /classify/
