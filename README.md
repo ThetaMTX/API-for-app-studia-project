@@ -65,8 +65,8 @@ Copy code
   "confidence": "92.15%"
 }
 ```
-##License
-This project is licensed under the MIT License. See the LICENSE file for more details.
+## License
+This project is licensed under the MIT License.See the LICENSE (in a future[or never]) file for more details.
 
-##Acknowledgments
+## Acknowledgments
 Thanks to the PyTorch and FastAPI communities for their resources and support.
