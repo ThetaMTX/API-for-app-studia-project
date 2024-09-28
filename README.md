@@ -39,19 +39,19 @@ source venv/bin/activate  # On Windows use `venv\Scripts\activate`
 ```
 pip install -r requirements.txt
 ```
-4. Training the Model (if needed)
+### Training the Model (if needed)
 Prepare your dataset in a directory named dataset with subdirectories for each class (e.g., dataset/Melanoma and dataset/Melanocytic Nevi)[not included because it was 20k files :c].
 
-5. Run the training script:
+1. Run the training script:
 ```
 python train.py
 ```
-6. Running the API
-Start the FastAPI application:
+### Running the API
+1. Start the FastAPI application:
 ```
 python main.py
 ```
-Open your browser and go to http://127.0.0.1:5000/classify/ to access the API documentation and test the image classification endpoint.
+2. Open your browser and go to http://127.0.0.1:5000/classify/ to access the API documentation and test the image classification endpoint.
 ```
 API Endpoint
 POST /classify/
