@@ -40,13 +40,11 @@ recognized_classes = {0: "Melanoma", 1: "Melanocytic Nevi"}
 @app.post("/classify/")
 async def classify_image(file: UploadFile = File(...)):
     try:
-        # Attempt to open the image
         image = Image.open(io.BytesIO(await file.read()))
 
-        # Apply transformations and add a batch dimension
         image = transform(image).unsqueeze(0)
 
-        # Run the model inference
+
         with torch.no_grad():
             output = model(image)
             probabilities = F.softmax(output, dim=1)  # Apply softmax to get probabilities
@@ -54,8 +52,7 @@ async def classify_image(file: UploadFile = File(...)):
 
         predicted_class = predicted.item()
         confidence_score = confidence.item() * 100  # Convert confidence to percentage
-
-        # Check if the predicted class is valid
+        
         if predicted_class in recognized_classes:
             return {
                 "class": recognized_classes[predicted_class],
@@ -68,9 +65,9 @@ async def classify_image(file: UploadFile = File(...)):
         raise HTTPException(status_code=400, detail="The uploaded file is not a valid image.")
 
     except Exception as e:
-        logging.error(f"Unexpected error: {str(e)}")  # Log the error
+        logging.error(f"Unexpected error: {str(e)}")  #Error
         raise HTTPException(status_code=500, detail=f"An error occurred: {str(e)}")
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="localhost", port=5000)  # Use localhost for local testing
+    uvicorn.run(app, host="localhost", port=5000) 
