@@ -27,7 +27,7 @@ Make sure you have the following installed:
 ### Installation
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/your-repo-name.git](https://github.com/ThetaMTX/API-for-app-studia-project
+   git clone https://github.com/ThetaMTX/API-for-app-studia-project
    cd your-repo-name
    ```
 2. Create a virtual environment (optional but recommended):
