@@ -10,47 +10,40 @@ import logging
 
 from model import SimpleCNN
 
-# Set up logging
 logging.basicConfig(level=logging.INFO)
 
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Adjust this to allow specific origins if necessary
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Load the model
 model = SimpleCNN(num_classes=2)
-model.load_state_dict(torch.load('modelreal.pth'))  # Ensure the path is correct
+model.load_state_dict(torch.load('modelreal.pth'))  # Ensure the path is a model needed
 model.eval()
 
-# Define image preprocessing
 transform = transforms.Compose([
     transforms.Resize((128, 128)),
     transforms.ToTensor(),
 ])
 
-# Define recognized classes
 recognized_classes = {0: "Melanoma", 1: "Melanocytic Nevi"}
 
 @app.post("/classify/")
 async def classify_image(file: UploadFile = File(...)):
     try:
-        # Attempt to open the image
         image = Image.open(io.BytesIO(await file.read()))
-
-        # Apply transformations and add a batch dimension
         image = transform(image).unsqueeze(0)
 
         # Run the model inference
         with torch.no_grad():
             output = model(image)
-            probabilities = F.softmax(output, dim=1)  # Apply softmax to get probabilities
-            confidence, predicted = torch.max(probabilities, 1)  # Get the confidence score and predicted class
+            probabilities = F.softmax(output, dim=1)
+            confidence, predicted = torch.max(probabilities, 1)
 
         predicted_class = predicted.item()
         confidence_score = confidence.item() * 100  # Convert confidence to percentage
@@ -73,4 +66,4 @@ async def classify_image(file: UploadFile = File(...)):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="localhost", port=5000)  # Use localhost
+    uvicorn.run(app, host="localhost", port=5000)

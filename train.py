@@ -1,5 +1,4 @@
 import time
-
 import torch
 import torch.optim as optim
 from torchvision import datasets, transforms
@@ -21,16 +20,14 @@ transform = transforms.Compose([
     transforms.ToTensor(),
 ])
 
-# Use ImageFolder to load dataset from directories
 dataset = datasets.ImageFolder('dataset', transform=transform)
 label_mapping = dataset.class_to_idx
 
-# Split dataset into training and validation sets
 train_size = int(0.8 * len(dataset))  # 80% for training
 val_size = len(dataset) - train_size  # 20% for validation
 train_dataset, val_dataset = torch.utils.data.random_split(dataset, [train_size, val_size])
 
-# Create data loaders for training and validation
+
 train_loader = DataLoader(train_dataset, batch_size=1024, shuffle=True, pin_memory=True)
 val_loader = DataLoader(val_dataset, batch_size=1024, shuffle=False, pin_memory=True)
 
@@ -49,7 +46,7 @@ def calculate_accuracy(y_pred, y_true):
 
 
 # Training loop with accuracy and loss tracking
-def train(model, train_loader, val_loader, optimizer, criterion, num_epochs=20):
+def train(model, train_loader, val_loader, optimizer, criterion, num_epochs=10):
     train_loss_history = []
     val_loss_history = []
     train_acc_history = []
@@ -111,6 +108,7 @@ def train(model, train_loader, val_loader, optimizer, criterion, num_epochs=20):
     return train_loss_history, train_acc_history, val_loss_history, val_acc_history
 
 
+
 def plot_model_training_curve(train_loss, train_acc, val_loss, val_acc, save_path="training_curves.png"):
     epochs = range(1, len(train_loss) + 1)
     plt.figure(figsize=(14, 5))
@@ -144,4 +142,4 @@ train_loss_history, train_acc_history, val_loss_history, val_acc_history = train
 plot_model_training_curve(train_loss_history, train_acc_history, val_loss_history, val_acc_history)
 
 # Save the model
-torch.save(model.state_dict(), 'model889.pth')
+torch.save(model.state_dict(), 'testmodel.pth')
