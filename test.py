@@ -1,17 +1,19 @@
-from torchviz import make_dot
+from torchview import draw_graph
 from model import SimpleCNN
 import torch
+
 
 ##model = SimpleCNN(2)
 ##print(model)
 
-x = torch.randn(1, 3, 128, 128)
 
-# generate predictions for the sample data
-y = SimpleCNN(2)(x)
+model_graph = draw_graph(SimpleCNN(2),
+                        input_size=(1,3,128,128),
+                        expand_nested=False,
+                        roll=True,
+                        graph_dir = 'TB',
+                        hide_inner_tensors = True,
+                        hide_module_functions = True,
 
-# generate a model architecture visualization
-make_dot(y.mean(),
-         params=dict(SimpleCNN(2).named_parameters()),
-         show_attrs=True,
-         show_saved=True).render("MyPyTorchModel_torchviz", format="png")
+)
+model_graph.visual_graph.render("graph", format="png")
