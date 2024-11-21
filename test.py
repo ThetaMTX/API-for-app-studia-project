@@ -16,4 +16,4 @@ model_graph = draw_graph(SimpleCNN(2),
                         hide_module_functions = True,
 
 )
-model_graph.visual_graph.render("graph", format="png")
+model_graph.visual_graph.render("graph.dot", format="png")
